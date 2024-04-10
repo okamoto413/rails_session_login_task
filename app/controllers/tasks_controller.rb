@@ -1,16 +1,17 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
+  #ログインしているユーザーが作成したタスクのみ表示
   def index
-    @tasks = Task.all
+    @tasks =  current_user.tasks
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: t('.created')
     else
