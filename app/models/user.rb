@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   #ユーザとタスクをアソシエーションし、タスク一覧画面には自分が作成したタスクのみを表示させる
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
 #8.機能要件：名前が未入力の場合	名前を入力してください
   validates :name, presence: { message:"名前を入力してください"}
@@ -23,6 +23,6 @@ class User < ApplicationRecord
 
 
 #8.機能要件：パスワードとパスワード（確認）が一致しない場合	パスワード（確認）とパスワードの入力が一致しません
-   validates :password, confirmation:{ message:"パスワード（確認）とパスワードの入力が一致しません"}
+   validates :password, confirmation:{ message:"パスワード（確認）とパスワードの入力が一致しません"}, uniqueness: true
 
 end

@@ -33,12 +33,15 @@ class UsersController < ApplicationController
       redirect_to user_path(@user.id)
       flash[:success] = "アカウントを更新しました"
     else
-      render :new
+      render :edit
     end
   end
 
   #アカウント削除する
   def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to new_session_path(@user.id)
   end  
 
   private
